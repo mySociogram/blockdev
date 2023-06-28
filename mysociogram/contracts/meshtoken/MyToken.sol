@@ -27,15 +27,8 @@ contract MyToken is ERC20 {
         transferFrom(from, to, amount);
     }
 
-    function tokenTransfer(address from, address to, uint256 amount) external {
-        // string memory user = UserRegistration(msg.sender).getUserDetails();
-        // require(user != address(0), 'user does not exist');
-        _transfer(from, to, amount);
-    }
-
     // When a user wants to gift a token to another user
     function giftToken(address to, uint256 amount) external {
-        // then transfer the token
         transfer(to, amount);
     }
 
