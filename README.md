@@ -1,2 +1,2 @@
 # blockdev
-Contains all SociolMesh Smart Contracts
+Contains all SocialMesh Smart Contracts
