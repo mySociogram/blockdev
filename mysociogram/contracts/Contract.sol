@@ -1,6 +1,7 @@
-// SPDX-License-Identifier: UNLICENSED
-pragma solidity ^0.8.9;
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.19;
 
-contract MyContract {
-    constructor() {}
-}
+import './meshtoken/MyToken.sol';
+import './registration/UserRegistration.sol';
+
+contract Contract is MyToken, UserRegistration {}
