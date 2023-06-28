@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.9;
+pragma solidity ^0.8.0;
 
 contract UserRegistration {
       /** 
@@ -33,7 +33,7 @@ contract UserRegistration {
         _status = _NOT_ENTERED;
     }
 
-    function registerUser(string memory _name) public nonReentrant {
+    function registerUser(string memory _name) external nonReentrant {
         require(users[msg.sender].walletAddress == address(0), "User already registered");
         
         User storage newUser = users[msg.sender];
@@ -43,14 +43,14 @@ contract UserRegistration {
         emit UserRegistered(msg.sender, _name);
     }
 
-    function getUserDetails() public view returns (string memory) {
+    function getUserDetails() external view returns (string memory) {
         User memory user = users[msg.sender];
         require(user.walletAddress != address(0), "User not found");
         
         return (user.name);
     }
 
-    function updateUser(string memory _name) public {
+    function updateUser(string memory _name) external {
         User storage user = users[msg.sender];
         require(user.walletAddress != address(0), "User not found");
 
@@ -59,7 +59,7 @@ contract UserRegistration {
         emit UserUpdated(msg.sender, _name);
     }
 
-    function deleteUser() public {
+    function deleteUser() external {
         require(users[msg.sender].walletAddress != address(0), "User not found");
 
         delete users[msg.sender];

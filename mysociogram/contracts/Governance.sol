@@ -16,13 +16,16 @@ contract Governance is Governor, GovernorCountingSimple, GovernorVotes, Governor
     {}
 
     function votingDelay() public pure override(Governor, GovernorTimelockControl) returns (uint256) {
-        return 40; // voting will be executed after 40 seconds   }
+        return 40; // voting will be executed after 40 seconds   
+        }
 
     function votingPeriod() public pure override(Governor, GovernorTimelockControl) returns (uint256) {
-    return 259200; // voting ends after 72 hours }
+        return 259200; // voting ends after 72 hours 
+    }
 
     function quorum(uint256) public pure override returns (uint256) {
-        return 0.1; // requires ten percent of total votes to pass proposal  }
+        return 0.1; // requires ten percent of total votes to pass proposal  
+    }
 
     function getVotes(address account, uint256 blockNumber)
         public view  override(IGovernor, GovernorVotes)

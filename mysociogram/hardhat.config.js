@@ -1,43 +1,40 @@
-require("@matterlabs/hardhat-zksync-solc");
+require('dotenv').config();
+require('@nomiclabs/hardhat-waffle');
+require("@nomiclabs/hardhat-etherscan");
 
-/** @type import('hardhat/config').HardhatUserConfig */
+const PRIVATE_KEY = process.env.WALLET_PRIVATE_KEY;
+const API_KEY = process.env.FANTOM_API_KEY;
+
 module.exports = {
-  zksolc: {
-    version: "1.3.9",
-    compilerSource: "binary",
-    settings: {
-      optimizer: {
-        enabled: true,
-      },
-    },
+  solidity: '0.8.19',
+  settings: {
+    optimizer: {
+      enabled: true,
+      runs: 200
+    }
   },
   networks: {
-    zksync_testnet: {
-      url: "https://zksync2-testnet.zksync.dev",
-      ethNetwork: "goerli",
-      chainId: 280,
-      zksync: true,
+    mainnet: {
+      url: `https://rpcapi.fantom.network`,
+      chainId: 250,
+      accounts: [PRIVATE_KEY]
     },
-    zksync_mainnet: {
-      url: "https://zksync2-mainnet.zksync.io/",
-      ethNetwork: "mainnet",
-      chainId: 324,
-      zksync: true,
+    testnet: {
+      url: `https://rpc.testnet.fantom.network`,
+      chainId: 4002,
+      accounts: [PRIVATE_KEY]
     },
-  },
-  paths: {
-    artifacts: "./artifacts-zk",
-    cache: "./cache-zk",
-    sources: "./contracts",
-    tests: "./test",
-  },
-  solidity: {
-    version: "0.8.17",
-    settings: {
-      optimizer: {
-        enabled: true,
-        runs: 200,
-      },
+    coverage: {
+      url: 'http://localhost:8555'
     },
+    localhost: {
+      url: `http://127.0.0.1:8545`
+    }
   },
+  etherscan: {
+    apiKey: {
+      ftmTestnet: API_KEY,
+      opera: API_KEY
+    }
+  }
 };
