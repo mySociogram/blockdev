@@ -2,9 +2,9 @@
 pragma solidity ^0.8.0;
 
 contract UserRegistration {
-      /** 
+    /** 
      * @dev Private variables
-     */
+    */
     uint256 private constant _NOT_ENTERED = 1;
     uint256 private constant _ENTERED = 2;
 
