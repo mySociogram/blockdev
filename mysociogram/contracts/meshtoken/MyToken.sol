@@ -10,6 +10,7 @@ contract MyToken is ERC20 {
     uint256 private _status;
 
     address public admin;
+    address[] public minters;
 
     modifier nonReentrant() {
         require(_status != _ENTERED, "ReentrancyGuard: reentrant call");
@@ -26,9 +27,18 @@ contract MyToken is ERC20 {
 
     /**
     * @dev Creates `amount` tokens and assigns them to `account`
+    * Only addresses authorized by the admin can perform this task
     */
     function mint(address to, uint256 amount) external {
-        require(msg.sender == admin, 'Only admin can perform task');
+        bool exists = false;
+        for (uint256 i = 0; i < minters.length; i++) {
+            if (minters[i] == msg.sender) {
+                exists = true;
+                break;
+            }
+        }
+        require(exists, "Unauthorized access");
+
         _mint(to, amount);
     }
 
@@ -38,6 +48,7 @@ contract MyToken is ERC20 {
 
     /**
     * @dev transfer token to an account
+    * called when an address(user) gains tokens from the app
     */
     function tokenTransfer(address to, uint256 amount) external nonReentrant {
         _transfer(admin, to, amount);
@@ -55,5 +66,35 @@ contract MyToken is ERC20 {
     */
     function getUserAllowance(address from, address to) external view returns(uint256) {
         return allowance(from, to);
+    }
+
+    /**
+    * @dev adds an address to the minters array
+    */
+    function addMinter(address _newAddress) external {
+        require(msg.sender == admin, 'Only admin can add a minter');
+        require(_newAddress != address(0), "Invalid address");
+        minters.push(_newAddress);
+    }
+
+    /**
+    * @dev removes an address from the minters array
+    */
+    function removeMinter(address _addressToRemove) external {
+        require(msg.sender == admin, 'Only admin can remove a minter');
+        for (uint256 i = 0; i < minters.length; i++) {
+            if (minters[i] == _addressToRemove) {
+                minters[i] = minters[minters.length - 1];
+                minters.pop();
+                break;
+            }
+        }
+    }
+
+    /**
+    * @dev returns the authorized minters array
+    */
+    function getMinters() external view returns (address[] memory) {
+        return minters;
     }
 }
