@@ -4,6 +4,7 @@ require("@nomiclabs/hardhat-etherscan");
 
 const PRIVATE_KEY = process.env.WALLET_PRIVATE_KEY;
 const API_KEY = process.env.FANTOM_API_KEY;
+const REPORT_GAS = process.env.REPORT_GAS || false
 
 module.exports = {
   solidity: '0.8.9',
@@ -36,5 +37,16 @@ module.exports = {
       ftmTestnet: API_KEY,
       opera: API_KEY
     }
+  },
+  gasReporter: {
+    enabled: REPORT_GAS,
+    currency: "USD",
+    outputFile: "gas-report.txt",
+    noColors: false,
+    coinmarketcap: process.env.COINMARKETCAP_API_KEY,
+  },
+  contractSizer: {
+    runOnCompile: true,
+    only: ["Governance"],
   }
 };
