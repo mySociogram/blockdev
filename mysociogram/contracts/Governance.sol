@@ -6,17 +6,16 @@ import "@openzeppelin/contracts/governance/extensions/GovernorSettings.sol";
 import "@openzeppelin/contracts/governance/extensions/GovernorCountingSimple.sol";
 import "@openzeppelin/contracts/governance/extensions/GovernorVotes.sol";
 import "@openzeppelin/contracts/governance/extensions/GovernorVotesQuorumFraction.sol";
-import "@openzeppelin/contracts/governance/extensions/GovernorTimelockControl.sol";
+
 
 //Using 12s to 1 block, vote delay is 10 blocks. voting period is 48hrs and quorum is 10 percent of all votes
 
-contract Governance is Governor, GovernorSettings, GovernorCountingSimple, GovernorVotes, GovernorVotesQuorumFraction, GovernorTimelockControl {
-    constructor(IVotes _token, TimelockController _timelock)
+contract Governance is Governor, GovernorSettings, GovernorCountingSimple, GovernorVotes, GovernorVotesQuorumFraction {
+    constructor(IVotes _token)
         Governor("Governance")
-        GovernorSettings(12 /* 120 seconds */, 17280 /* 2 days */, 0)
+        GovernorSettings(10 /* 120 seconds */, 14400 /* 48 hours */, 0)
         GovernorVotes(_token)
         GovernorVotesQuorumFraction(10)
-        GovernorTimelockControl(_timelock)
     {}
 
     // The following functions are overrides required by Solidity.
@@ -48,23 +47,6 @@ contract Governance is Governor, GovernorSettings, GovernorCountingSimple, Gover
         return super.quorum(blockNumber);
     }
 
-    function state(uint256 proposalId)
-        public
-        view
-        override(Governor, GovernorTimelockControl)
-        returns (ProposalState)
-    {
-        return super.state(proposalId);
-    }
-
-    function propose(address[] memory targets, uint256[] memory values, bytes[] memory calldatas, string memory description)
-        public
-        override(Governor, IGovernor)
-        returns (uint256)
-    {
-        return super.propose(targets, values, calldatas, description);
-    }
-
     function proposalThreshold()
         public
         view
@@ -72,38 +54,5 @@ contract Governance is Governor, GovernorSettings, GovernorCountingSimple, Gover
         returns (uint256)
     {
         return super.proposalThreshold();
-    }
-
-    function _execute(uint256 proposalId, address[] memory targets, uint256[] memory values, bytes[] memory calldatas, bytes32 descriptionHash)
-        internal
-        override(Governor, GovernorTimelockControl)
-    {
-        super._execute(proposalId, targets, values, calldatas, descriptionHash);
-    }
-
-    function _cancel(address[] memory targets, uint256[] memory values, bytes[] memory calldatas, bytes32 descriptionHash)
-        internal
-        override(Governor, GovernorTimelockControl)
-        returns (uint256)
-    {
-        return super._cancel(targets, values, calldatas, descriptionHash);
-    }
-
-    function _executor()
-        internal
-        view
-        override(Governor, GovernorTimelockControl)
-        returns (address)
-    {
-        return super._executor();
-    }
-
-    function supportsInterface(bytes4 interfaceId)
-        public
-        view
-        override(Governor, GovernorTimelockControl)
-        returns (bool)
-    {
-        return super.supportsInterface(interfaceId);
     }
 }
