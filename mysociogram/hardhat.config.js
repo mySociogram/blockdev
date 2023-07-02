@@ -6,7 +6,7 @@ const PRIVATE_KEY = process.env.WALLET_PRIVATE_KEY;
 const API_KEY = process.env.FANTOM_API_KEY;
 
 module.exports = {
-  solidity: '0.8.19',
+  solidity: '0.8.9',
   settings: {
     optimizer: {
       enabled: true,

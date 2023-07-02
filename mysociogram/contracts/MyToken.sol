@@ -1,9 +1,9 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.19;
+pragma solidity ^0.8.9;
 
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 
-contract MyToken is ERC20 {
+contract SocialFoundersToken is ERC20 {
     uint256 private constant _NOT_ENTERED = 1;
     uint256 private constant _ENTERED = 2;
 
@@ -20,7 +20,7 @@ contract MyToken is ERC20 {
         _status = _NOT_ENTERED;
     }
 
-    constructor() ERC20 ('MeshToken', 'MESH') {
+    constructor() ERC20 ('FoundersToken', 'FTN') {
         _mint(msg.sender, 1000000000 * 10 ** 18);
         admin = msg.sender;
     }

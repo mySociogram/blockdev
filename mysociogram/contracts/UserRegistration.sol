@@ -17,7 +17,7 @@ contract UserRegistration {
 
     mapping(address => User) public users;
 
-    modifier nonReentrant() {
+    modifier nonReentrancy() {
         require(_status != _ENTERED, "ReentrancyGuard: reentrant call");
         _status = _ENTERED;
         _;
@@ -33,7 +33,7 @@ contract UserRegistration {
         _status = _NOT_ENTERED;
     }
 
-    function registerUser(string memory _name) external nonReentrant {
+    function registerUser(string memory _name) external nonReentrancy {
         require(users[msg.sender].walletAddress == address(0), "User already registered");
         
         User storage newUser = users[msg.sender];
@@ -66,4 +66,6 @@ contract UserRegistration {
 
         emit UserDeleted(msg.sender);
     }
+
+    
 }
