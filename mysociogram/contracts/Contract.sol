@@ -1,8 +1,7 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.19;
+pragma solidity ^0.8.9;
 
-import './meshtoken/MyToken.sol';
-import './registration/UserRegistration.sol';
-import './Governance.sol';
+// import './meshtoken/MyToken.sol';
+import './UserRegistration.sol';
 
-contract Contract is MyToken, UserRegistration, Governance {}
+contract Contract is UserRegistration {}

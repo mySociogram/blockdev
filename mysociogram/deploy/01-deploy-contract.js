@@ -6,7 +6,7 @@ const { verify } = require("../helper-functions")
 
 async function main() {
   // We get the contract to deploy
-  const Contract = await hre.ethers.getContractFactory('Contract');
+  const Contract = await hre.ethers.getContractFactory('UserRegistration');
   const contract = await Contract.deploy();
   
   await contract.deployed();
