@@ -10,7 +10,7 @@ import "@openzeppelin/contracts/governance/extensions/GovernorVotesQuorumFractio
 
 //Using 12s to 1 block, vote delay is 10 blocks. voting period is 48hrs and quorum is 10 percent of all votes
 
-contract Governance is Governor, GovernorSettings, GovernorCountingSimple, GovernorVotes, GovernorVotesQuorumFraction {
+contract FoundersGovernance is Governor, GovernorSettings, GovernorCountingSimple, GovernorVotes, GovernorVotesQuorumFraction {
     constructor(IVotes _token)
         Governor("Governance")
         GovernorSettings(10 /* 120 seconds */, 14400 /* 48 hours */, 0)

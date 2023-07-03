@@ -7,12 +7,14 @@ const API_KEY = process.env.FANTOM_API_KEY;
 const REPORT_GAS = process.env.REPORT_GAS || false
 
 module.exports = {
-  solidity: '0.8.9',
-  settings: {
-    optimizer: {
-      enabled: true,
-      runs: 200
-    }
+  solidity: {
+    version: "0.8.9",
+    settings: {
+      optimizer: {
+        enabled: true,
+        runs: 200,
+      },
+    },
   },
   networks: {
     mainnet: {
