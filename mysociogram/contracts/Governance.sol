@@ -56,3 +56,4 @@ contract Governance is Governor, GovernorSettings, GovernorCountingSimple, Gover
         return super.proposalThreshold();
     }
 }
+// The following Governance functions; propose(), executeProposal(), and cancelProposal() including TimelockControl() will be handled using Openzeppelin defender.
