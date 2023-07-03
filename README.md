@@ -28,4 +28,5 @@ npm run deploy
 # or
 yarn deploy
 ```
-The following functions; propose(), executeProposal(), and cancelProposal() including TimelockControl() will be handled using Openzeppelin defender.
+## Contracts 
+The following Governance functions; propose(), executeProposal(), and cancelProposal() including TimelockControl() will be handled using Openzeppelin defender.
